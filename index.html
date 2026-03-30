@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pesquisa — Métricas em Foco</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #C8102E;
+    --red-dark: #9c0d24;
+    --red-light: #f9e8eb;
+    --ink: #1a1a1a;
+    --muted: #6b6b6b;
+    --border: #e2e2e2;
+    --bg: #fafaf8;
+    --white: #ffffff;
+    --accent: #f5f0e8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--red);
+    color: white;
+    padding: 28px 32px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.07);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; right: 40px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .header-tag {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 8px;
+  }
+  .header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .header-date {
+    font-size: 13px;
+    opacity: 0.75;
+    font-weight: 300;
+  }
+
+  /* INSTRUÇÕES */
+  .instructions {
+    background: var(--accent);
+    border-left: 3px solid var(--red);
+    margin: 20px 16px;
+    padding: 14px 16px;
+    border-radius: 0 8px 8px 0;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .instructions strong { color: var(--ink); }
+
+  /* FORM */
+  .form-container {
+    padding: 0 16px 40px;
+  }
+
+  /* SEÇÃO */
+  .section {
+    margin-bottom: 8px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 24px 0 14px;
+  }
+  .section-number {
+    background: var(--red);
+    color: white;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 17px;
+    color: var(--ink);
+  }
+  .section-divider {
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 16px;
+  }
+
+  /* CAMPO */
+  .field {
+    margin-bottom: 18px;
+  }
+  .field-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 6px;
+    display: block;
+    line-height: 1.4;
+  }
+  .field-hint {
+    font-size: 11.5px;
+    color: var(--muted);
+    margin-bottom: 7px;
+    font-style: italic;
+  }
+
+  /* INPUT */
+  input[type="text"],
+  input[type="number"],
+  textarea,
+  select {
+    width: 100%;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 11px 13px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--red);
+  }
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+    line-height: 1.5;
+  }
+
+  /* RADIO / CHECKBOX CUSTOM */
+  .options-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .option-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    background: var(--white);
+  }
+  .option-item:active { background: var(--red-light); }
+  .option-item input[type="radio"],
+  .option-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    appearance: none;
+    -webkit-appearance: none;
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+  .option-item input[type="checkbox"] {
+    border-radius: 5px;
+  }
+  .option-item input[type="radio"]:checked,
+  .option-item input[type="checkbox"]:checked {
+    background: var(--red);
+    border-color: var(--red);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='5' cy='5' r='2.5' fill='white'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .option-item input[type="checkbox"]:checked {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 6l3 3 5-5' stroke='white' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  }
+  .option-label {
+    font-size: 13.5px;
+    line-height: 1.4;
+    color: var(--ink);
+    padding-top: 0;
+  }
+  .option-sublabel {
+    font-size: 11.5px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* ESCALA */
+  .scale-group {
+    display: flex;
+    gap: 6px;
+  }
+  .scale-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .scale-item input[type="radio"] {
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: var(--white);
+    position: relative;
+  }
+  .scale-item input[type="radio"]:checked {
+    background: var(--red);
+    border-color: var(--red);
+  }
+  .scale-item label {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .scale-num {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .scale-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4px;
+  }
+  .scale-labels span {
+    font-size: 10.5px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* INLINE INPUT COM LABEL */
+  .inline-field {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .inline-field label {
+    font-size: 12.5px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .inline-field input {
+    flex: 1;
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  /* RODAPÉ DE SEÇÃO */
+  .field-note {
+    background: var(--red-light);
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 11.5px;
+    color: var(--red-dark);
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+  .field-note strong { font-weight: 600; }
+
+  /* SUBMIT */
+  .submit-area {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .submit-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 14px;
+    text-align: center;
+    font-style: italic;
+  }
+  .btn-submit {
+    width: 100%;
+    background: var(--red);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+  }
+  .btn-submit:active { background: var(--red-dark); }
+
+  /* PRINT STYLES */
+  @media print {
+    body { background: white; }
+    .header { background: #C8102E !important; -webkit-print-color-adjust: exact; }
+    .btn-submit { display: none; }
+    .option-item { break-inside: avoid; }
+    .section { break-inside: avoid; }
+  }
+
+  /* RESPONDENTE TAG */
+  .respondente-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 13px;
+    margin-bottom: 20px;
+  }
+  .respondente-tag label {
+    font-size: 12px;
+    color: var(--muted);
+    white-space: nowrap;
+    font-weight: 500;
+  }
+  .respondente-tag input {
+    border: none;
+    padding: 0;
+    font-size: 14px;
+    background: transparent;
+    flex: 1;
+  }
+  .respondente-tag input:focus { border: none; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-tag">Força Máxima Franquias · V4 Company</div>
+  <h1>Pesquisa de Perfil<br>& Percepção</h1>
+  <div class="header-date">Métricas em Foco — 31 de março de 2026</div>
+</div>
+
+<div class="instructions">
+  <strong>Instruções para aplicação:</strong> Preencha um formulário por escola/participante. Leve de 5 a 8 minutos. Pode ser preenchido pelo respondente ou pela equipe V4 durante a conversa. Ao final do evento, recolha todos os formulários.
+</div>
+
+<div class="form-container">
+
+  <!-- IDENTIFICAÇÃO DO APLICADOR -->
+  <div class="respondente-tag">
+    <label>Aplicado por:</label>
+    <input type="text" placeholder="Fred / Jo / Palma">
+  </div>
+
+  <!-- SEÇÃO 1: PERFIL DA ESCOLA -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <div class="section-title">Perfil da Escola</div>
+    </div>
+    <div class="section-divider"></div>
+
+    <div class="field">
+      <label class="field-label">Nome da escola</label>
+      <input type="text" placeholder="">
+    </div>
+
+    <div class="field">
+      <label class="field-label">Cidade / Bairro</label>
+      <input type="text" placeholder="">
+    </div>
+
+    <div class="field">
+      <label class="field-label">Há quanto tempo a escola está aberta?</label>
+      <div class="options-group">
+        <label class="option-item">
+          <input type="radio" name="tempo_escola">
+          <div><div class="option-label">Menos de 2 anos</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="tempo_escola">
+          <div><div class="option-label">De 2 a 5 anos</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="tempo_escola">
+          <div><div class="option-label">De 5 a 10 anos</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="tempo_escola">
+          <div><div class="option-label">Mais de 10 anos</div></div>
+        </label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Quantos alunos a escola tem hoje (aproximadamente)?</label>
+      <div class="options-group">
+        <label class="option-item">
+          <input type="radio" name="alunos">
+          <div><div class="option-label">Até 100 alunos</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="alunos">
+          <div><div class="option-label">101 a 250 alunos</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="alunos">
+          <div><div class="option-label">251 a 500 alunos</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="alunos">
+          <div><div class="option-label">Mais de 500 alunos</div></div>
+        </label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Qual a faixa de faturamento mensal da escola?</label>
+      <div class="options-group">
+        <label class="option-item">
+          <input type="radio" name="faturamento">
+          <div><div class="option-label">Abaixo de R$ 50 mil/mês</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="faturamento">
+          <div><div class="option-label">R$ 50 mil a R$ 100 mil/mês</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="faturamento">
+          <div><div class="option-label">R$ 100 mil a R$ 200 mil/mês</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="faturamento">
+          <div><div class="option-label">Acima de R$ 200 mil/mês</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="faturamento">
+          <div><div class="option-label">Prefiro não informar</div></div>
+        </label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">A escola é independente ou já pertence a alguma rede?</label>
+      <div class="options-group">
+        <label class="option-item">
+          <input type="radio" name="rede">
+          <div><div class="option-label">Independente (marca própria)</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="rede">
+          <div>
+            <div class="option-label">Já sou franqueado de outra rede</div>
+            <div class="option-sublabel">Qual rede? ________________</div>
+          </div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="rede">
+          <div><div class="option-label">Sistema de ensino (SEM franquia)</div></div>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 2: MOMENTO ATUAL -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <div class="section-title">Momento Atual da Escola</div>
+    </div>
+    <div class="section-divider"></div>
+
+    <div class="field">
+      <label class="field-label">Qual é a sua maior dor hoje como dono de escola?</label>
+      <div class="field-hint">Pode marcar até 2 opções</div>
+      <div class="options-group">
+        <label class="option-item">
+          <input type="checkbox" name="dor">
+          <div><div class="option-label">Captar novos alunos / aumentar matrículas</div></div>
+        </label>
+        <label class="option-item">
+          <input type="checkbox" name="dor">
+          <div><div class="option-label">Fidelizar alunos / reduzir evasão</div></div>
+        </label>
+        <label class="option-item">
+          <input type="checkbox" name="dor">
+          <div><div class="option-label">Aumentar o faturamento / ticket médio</div></div>
+        </label>
+        <label class="option-item">
+          <input type="checkbox" name="dor">
+          <div><div class="option-label">Melhorar a gestão e operação da escola</div></div>
+        </label>
+        <label class="option-item">
+          <input type="checkbox" name="dor">
+          <div><div class="option-label">Ter um time comercial estruturado</div></div>
+        </label>
+        <label class="option-item">
+          <input type="checkbox" name="dor">
+          <div><div class="option-label">Competição com outras escolas da região</div></div>
+        </label>
+        <label class="option-item">
+          <input type="checkbox" name="dor">
+          <div>
+            <div class="option-label">Outro</div>
+            <div class="option-sublabel">Qual? ________________</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Hoje a escola cresce, está estável ou perdendo alunos?</label>
+      <div class="options-group">
+        <label class="option-item">
+          <input type="radio" name="crescimento">
+          <div><div class="option-label">📈 Crescendo</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="crescimento">
+          <div><div class="option-label">➡️ Estável (sem crescimento relevante)</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="crescimento">
+          <div><div class="option-label">📉 Perdendo alunos / em queda</div></div>
+        </label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Você já tentou alguma consultoria ou solução de marketing educacional antes?</label>
+      <div class="options-group">
+        <label class="option-item">
+          <input type="radio" name="consultoria">
+          <div><div class="option-label">Sim, e funcionou bem</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="consultoria">
+          <div><div class="option-label">Sim, mas não trouxe resultado</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="consultoria">
+          <div><div class="option-label">Não, nunca contratei</div></div>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 3: PERCEPÇÃO DO EVENTO -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <div class="section-title">Percepção do Evento</div>
+    </div>
+    <div class="section-divider"></div>
+
+    <div class="field">
+      <label class="field-label">Como você ficou sabendo do evento de hoje?</label>
+      <div class="options-group">
+        <label class="option-item">
+          <input type="radio" name="origem">
+          <div><div class="option-label">Instagram do Jhonatan Pache</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="origem">
+          <div><div class="option-label">WhatsApp / grupo</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="origem">
+          <div><div class="option-label">Indicação de outro dono de escola</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="origem">
+          <div><div class="option-label">Já sou cliente do FM Growth</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="origem">
+          <div><div class="option-label">Anúncio pago (Meta / Instagram Ads)</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="origem">
+          <div>
+            <div class="option-label">Outro</div>
+            <div class="option-sublabel">Qual? ________________</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">O que mais chamou sua atenção na chamada do evento?</label>
+      <textarea placeholder="Espaço livre para resposta..."></textarea>
+    </div>
+
+    <div class="field">
+      <label class="field-label">O que você veio buscar aqui hoje?</label>
+      <div class="field-hint">Pode marcar mais de uma</div>
+      <div class="options-group">
+        <label class="option-item">
+          <input type="checkbox" name="objetivo_evento">
+          <div><div class="option-label">Ver os resultados das escolas Força Máxima</div></div>
+        </label>
+        <label class="option-item">
+          <input type="checkbox" name="objetivo_evento">
+          <div><div class="option-label">Entender melhor como funciona o FM Growth</div></div>
+        </label>
+        <label class="option-item">
+          <input type="checkbox" name="objetivo_evento">
+          <div><div class="option-label">Saber mais sobre a virada de bandeira (franquia)</div></div>
+        </label>
+        <label class="option-item">
+          <input type="checkbox" name="objetivo_evento">
+          <div><div class="option-label">Networking com outros donos de escola</div></div>
+        </label>
+        <label class="option-item">
+          <input type="checkbox" name="objetivo_evento">
+          <div><div class="option-label">Curiosidade / ainda estou avaliando</div></div>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 4: INTERESSE EM FRANQUIA -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">4</div>
+      <div class="section-title">Interesse em Virar Força Máxima</div>
+    </div>
+    <div class="section-divider"></div>
+
+    <div class="field">
+      <label class="field-label">Antes de hoje, você já considerava virar Força Máxima?</label>
+      <div class="options-group">
+        <label class="option-item">
+          <input type="radio" name="interesse_pre">
+          <div><div class="option-label">Sim, era o principal motivo de estar aqui</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="interesse_pre">
+          <div><div class="option-label">Tinha curiosidade, mas não era prioridade</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="interesse_pre">
+          <div><div class="option-label">Não, vim pelo conteúdo do evento</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="interesse_pre">
+          <div><div class="option-label">Não conhecia essa possibilidade</div></div>
+        </label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Após o que viu hoje, qual o seu nível de interesse em virar Força Máxima?</label>
+      <div class="scale-group">
+        <div class="scale-item">
+          <div class="scale-num">1</div>
+          <input type="radio" name="interesse_pos" value="1">
+        </div>
+        <div class="scale-item">
+          <div class="scale-num">2</div>
+          <input type="radio" name="interesse_pos" value="2">
+        </div>
+        <div class="scale-item">
+          <div class="scale-num">3</div>
+          <input type="radio" name="interesse_pos" value="3">
+        </div>
+        <div class="scale-item">
+          <div class="scale-num">4</div>
+          <input type="radio" name="interesse_pos" value="4">
+        </div>
+        <div class="scale-item">
+          <div class="scale-num">5</div>
+          <input type="radio" name="interesse_pos" value="5">
+        </div>
+      </div>
+      <div class="scale-labels">
+        <span>Sem interesse</span>
+        <span>Muito interessado</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">O que te impediria de virar Força Máxima hoje?</label>
+      <div class="field-hint">Pode marcar mais de uma</div>
+      <div class="options-group">
+        <label class="option-item">
+          <input type="checkbox" name="objecao">
+          <div><div class="option-label">Valor do investimento / capital disponível</div></div>
+        </label>
+        <label class="option-item">
+          <input type="checkbox" name="objecao">
+          <div><div class="option-label">Ainda não conheço bem a rede / falta de confiança</div></div>
+        </label>
+        <label class="option-item">
+          <input type="checkbox" name="objecao">
+          <div><div class="option-label">Tenho dúvidas sobre o prazo de retorno</div></div>
+        </label>
+        <label class="option-item">
+          <input type="checkbox" name="objecao">
+          <div><div class="option-label">Preciso reforma na estrutura física</div></div>
+        </label>
+        <label class="option-item">
+          <input type="checkbox" name="objecao">
+          <div><div class="option-label">Questão de localização (já tem FM próximo)</div></div>
+        </label>
+        <label class="option-item">
+          <input type="checkbox" name="objecao">
+          <div><div class="option-label">Preciso consultar sócios / família</div></div>
+        </label>
+        <label class="option-item">
+          <input type="checkbox" name="objecao">
+          <div><div class="option-label">Não vejo impedimento — tenho interesse real</div></div>
+        </label>
+        <label class="option-item">
+          <input type="checkbox" name="objecao">
+          <div>
+            <div class="option-label">Outro</div>
+            <div class="option-sublabel">Qual? ________________</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Qual seria o próximo passo ideal pra você depois de hoje?</label>
+      <div class="options-group">
+        <label class="option-item">
+          <input type="radio" name="proximo_passo">
+          <div><div class="option-label">Conversa individual com Jhonatan</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="proximo_passo">
+          <div><div class="option-label">Receber material detalhado (proposta, números)</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="proximo_passo">
+          <div><div class="option-label">Visitar uma unidade Força Máxima</div></div>
+        </label>
+        <label class="option-item">
+          <input type="radio" name="proximo_passo">
+          <div><div class="option-label">Ainda não estou pronto para próximos passos</div></div>
+        </label>
+      </div>
+    </div>
+
+    <div class="field-note">
+      <strong>🔒 Campo interno (não mostrar ao respondente):</strong> Avaliação de perfil pelo aplicador — Potencial de franquia: 
+      <div style="display:flex; gap:6px; margin-top:8px;">
+        <span style="padding:4px 10px; border:1.5px solid #C8102E; border-radius:20px; font-size:11px; cursor:pointer;">🔴 Baixo</span>
+        <span style="padding:4px 10px; border:1.5px solid #C8102E; border-radius:20px; font-size:11px; cursor:pointer;">🟡 Médio</span>
+        <span style="padding:4px 10px; border:1.5px solid #C8102E; border-radius:20px; font-size:11px; cursor:pointer;">🟢 Alto — chamar pro almoço</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 5: CAMPO ABERTO -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number">5</div>
+      <div class="section-title">Observações Gerais</div>
+    </div>
+    <div class="section-divider"></div>
+
+    <div class="field">
+      <label class="field-label">Tem alguma pergunta ou comentário que gostaria de deixar?</label>
+      <textarea placeholder="Espaço livre..."></textarea>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Contato para follow-up</label>
+      <div class="field-hint">Preencher apenas se o participante autorizar</div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <input type="text" placeholder="Nome">
+        <input type="text" placeholder="WhatsApp">
+        <input type="text" placeholder="@Instagram da escola (opcional)">
+      </div>
+    </div>
+  </div>
+
+  <div class="submit-area">
+    <div class="submit-label">Verifique se todos os campos obrigatórios foram preenchidos antes de finalizar.</div>
+    <button class="btn-submit" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
+  </div>
+
+</div>
+</body>
+</html>
