@@ -208,6 +208,41 @@
         <label class="option-item"><input type="radio" name="consultoria"><div><div class="option-label">Não, nunca contratei</div></div></label>
       </div>
     </div>
+
+    <div class="field">
+      <label class="field-label">Se já tentou algo que não funcionou, o que especificamente falhou?</label>
+      <div class="field-hint">Pode marcar mais de uma</div>
+      <div class="options-group">
+        <label class="option-item"><input type="checkbox" name="falhou"><div><div class="option-label">Tráfego pago — trouxe lead mas não converteu</div></div></label>
+        <label class="option-item"><input type="checkbox" name="falhou"><div><div class="option-label">SDR / equipe comercial — não conseguiu agendar ou fechar</div></div></label>
+        <label class="option-item"><input type="checkbox" name="falhou"><div><div class="option-label">Sistema de ensino — não gerou diferencial percebido</div></div></label>
+        <label class="option-item"><input type="checkbox" name="falhou"><div><div class="option-label">Consultoria — diagnóstico sem implementação real</div></div></label>
+        <label class="option-item"><input type="checkbox" name="falhou"><div><div class="option-label">Redes sociais / conteúdo — não gerou resultado concreto</div></div></label>
+        <label class="option-item">
+          <input type="checkbox" name="falhou">
+          <div>
+            <div class="option-label">Outro</div>
+            <input type="text" class="outro-input" placeholder="O que foi?">
+          </div>
+        </label>
+        <label class="option-item"><input type="checkbox" name="falhou"><div><div class="option-label">Nunca tentei nada ainda</div></div></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Como você se sente em relação à sua escola hoje?</label>
+      <div class="field-hint">Escolha até 2 palavras que melhor descrevem seu estado atual</div>
+      <div class="options-group" style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+        <label class="option-item"><input type="checkbox" name="emocao"><div><div class="option-label">😤 Frustrado</div></div></label>
+        <label class="option-item"><input type="checkbox" name="emocao"><div><div class="option-label">😶 Estagnado</div></div></label>
+        <label class="option-item"><input type="checkbox" name="emocao"><div><div class="option-label">😰 Sobrecarregado</div></div></label>
+        <label class="option-item"><input type="checkbox" name="emocao"><div><div class="option-label">😟 Inseguro</div></div></label>
+        <label class="option-item"><input type="checkbox" name="emocao"><div><div class="option-label">😕 Perdido</div></div></label>
+        <label class="option-item"><input type="checkbox" name="emocao"><div><div class="option-label">😊 Animado</div></div></label>
+        <label class="option-item"><input type="checkbox" name="emocao"><div><div class="option-label">😃 Otimista</div></div></label>
+        <label class="option-item"><input type="checkbox" name="emocao"><div><div class="option-label">😎 Orgulhoso</div></div></label>
+      </div>
+    </div>
   </div>
 
   <!-- SEÇÃO 3 -->
@@ -291,6 +326,27 @@
       </div>
     </div>
 
+    <div class="field">
+      <label class="field-label">O que te travaria na hora de mudar algo estrutural na sua escola?</label>
+      <div class="field-hint">Pode marcar mais de uma</div>
+      <div class="options-group">
+        <label class="option-item"><input type="checkbox" name="trava_mudanca"><div><div class="option-label">Medo de perder a identidade da escola</div></div></label>
+        <label class="option-item"><input type="checkbox" name="trava_mudanca"><div><div class="option-label">Não saber se tenho o perfil certo pra isso</div></div></label>
+        <label class="option-item"><input type="checkbox" name="trava_mudanca"><div><div class="option-label">Não saber se o momento é certo</div></div></label>
+        <label class="option-item"><input type="checkbox" name="trava_mudanca"><div><div class="option-label">Falta de clareza sobre o que muda na prática do dia a dia</div></div></label>
+        <label class="option-item"><input type="checkbox" name="trava_mudanca"><div><div class="option-label">Receio de depender de terceiros para tocar a escola</div></div></label>
+        <label class="option-item"><input type="checkbox" name="trava_mudanca"><div><div class="option-label">Já tentei mudar antes e não deu certo</div></div></label>
+        <label class="option-item"><input type="checkbox" name="trava_mudanca"><div><div class="option-label">Preciso convencer sócios ou família primeiro</div></div></label>
+        <label class="option-item">
+          <input type="checkbox" name="trava_mudanca">
+          <div>
+            <div class="option-label">Outro</div>
+            <input type="text" class="outro-input" placeholder="Qual?">
+          </div>
+        </label>
+      </div>
+    </div>
+
     <div class="field-note">
       <strong>🔒 Interno — não mostrar ao respondente</strong><br>
       Avaliação de perfil pelo aplicador:
@@ -308,8 +364,8 @@
     <div class="section-divider"></div>
 
     <div class="field">
-      <label class="field-label">Tem alguma pergunta ou comentário que gostaria de deixar?</label>
-      <textarea placeholder="Espaço livre..."></textarea>
+      <label class="field-label">Se você pudesse resolver uma coisa na sua escola amanhã, o que seria?</label>
+      <textarea placeholder="Resposta livre..."></textarea>
     </div>
     <div class="field">
       <label class="field-label">Contato para follow-up</label>
