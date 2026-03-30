@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pesquisa — Métricas em Foco</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --red: #C8102E;
@@ -16,14 +15,16 @@
     --bg: #fafaf8;
     --white: #ffffff;
     --accent: #f5f0e8;
+    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    --font-display: Georgia, 'Times New Roman', serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; }
+  body { font-family: var(--font-body); background: var(--bg); color: var(--ink); min-height: 100vh; }
   .header { background: var(--red); color: white; padding: 28px 32px 24px; position: relative; overflow: hidden; }
   .header::before { content: ''; position: absolute; top: -40px; right: -40px; width: 180px; height: 180px; border-radius: 50%; background: rgba(255,255,255,0.07); }
   .header::after { content: ''; position: absolute; bottom: -60px; right: 40px; width: 120px; height: 120px; border-radius: 50%; background: rgba(255,255,255,0.05); }
   .header-tag { font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; opacity: 0.7; margin-bottom: 8px; }
-  .header h1 { font-family: 'DM Serif Display', serif; font-size: 26px; font-weight: 400; line-height: 1.2; margin-bottom: 6px; }
+  .header h1 { font-family: var(--font-display); font-size: 26px; font-weight: 400; line-height: 1.2; margin-bottom: 6px; }
   .header-date { font-size: 13px; opacity: 0.75; font-weight: 300; }
   .instructions { background: var(--accent); border-left: 3px solid var(--red); margin: 20px 16px; padding: 14px 16px; border-radius: 0 8px 8px 0; font-size: 12.5px; color: var(--muted); line-height: 1.6; }
   .instructions strong { color: var(--ink); }
@@ -31,14 +32,14 @@
   .section { margin-bottom: 8px; }
   .section-header { display: flex; align-items: center; gap: 10px; margin: 24px 0 14px; }
   .section-number { background: var(--red); color: white; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; }
-  .section-title { font-family: 'DM Serif Display', serif; font-size: 17px; color: var(--ink); }
+  .section-title { font-family: var(--font-display); font-size: 17px; color: var(--ink); }
   .section-divider { height: 1px; background: var(--border); margin-bottom: 16px; }
   .field { margin-bottom: 18px; }
   .field-label { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 6px; display: block; line-height: 1.4; }
   .field-hint { font-size: 11.5px; color: var(--muted); margin-bottom: 7px; font-style: italic; }
   input[type="text"], input[type="number"], textarea, select {
     width: 100%; border: 1.5px solid var(--border); border-radius: 8px; padding: 11px 13px;
-    font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--ink); background: var(--white);
+    font-family: var(--font-body); font-size: 14px; color: var(--ink); background: var(--white);
     outline: none; transition: border-color 0.2s; -webkit-appearance: none;
   }
   input:focus, textarea:focus, select:focus { border-color: var(--red); }
@@ -77,13 +78,13 @@
   .field-note { background: var(--red-light); border-radius: 6px; padding: 12px 14px; font-size: 11.5px; color: var(--red-dark); margin-top: 6px; line-height: 1.5; }
   .field-note strong { font-weight: 600; }
   .perfil-btns { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
-  .perfil-btn { padding: 6px 12px; border: 1.5px solid var(--red); border-radius: 20px; font-size: 11.5px; cursor: pointer; background: transparent; color: var(--red-dark); font-family: 'DM Sans', sans-serif; font-weight: 500; transition: all 0.15s; -webkit-appearance: none; }
+  .perfil-btn { padding: 6px 12px; border: 1.5px solid var(--red); border-radius: 20px; font-size: 11.5px; cursor: pointer; background: transparent; color: var(--red-dark); font-family: var(--font-body); font-weight: 500; transition: all 0.15s; -webkit-appearance: none; }
   .perfil-btn.selected-baixo { background: #C8102E; color: white; border-color: #C8102E; }
   .perfil-btn.selected-medio { background: #d97706; color: white; border-color: #d97706; }
   .perfil-btn.selected-alto  { background: #15803d; color: white; border-color: #15803d; }
   .submit-area { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); }
   .submit-label { font-size: 12px; color: var(--muted); margin-bottom: 14px; text-align: center; font-style: italic; }
-  .btn-submit { width: 100%; background: var(--red); color: white; border: none; border-radius: 10px; padding: 16px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; }
+  .btn-submit { width: 100%; background: var(--red); color: white; border: none; border-radius: 10px; padding: 16px; font-family: var(--font-body); font-size: 15px; font-weight: 600; cursor: pointer; }
   .btn-submit:active { background: var(--red-dark); }
   .respondente-tag { display: flex; align-items: center; gap: 8px; background: var(--white); border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 13px; margin-bottom: 20px; }
   .respondente-tag label { font-size: 12px; color: var(--muted); white-space: nowrap; font-weight: 500; }
@@ -380,17 +381,177 @@
 
   <div class="submit-area">
     <div class="submit-label">Verifique se todos os campos foram preenchidos antes de finalizar.</div>
-    <button class="btn-submit" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
+    <button class="btn-submit" id="btn-enviar" onclick="enviarFormulario()">✅ Enviar para a planilha</button>
+    <div id="status-msg" style="margin-top:12px; text-align:center; font-size:13px; display:none;"></div>
   </div>
 
 </div>
 
 <script>
+  // ── Seleção de perfil ──
+  var perfilSelecionado = '';
   function selecionarPerfil(nivel) {
     ['baixo','medio','alto'].forEach(n => {
       document.getElementById('btn-' + n).classList.remove('selected-baixo','selected-medio','selected-alto');
     });
     document.getElementById('btn-' + nivel).classList.add('selected-' + nivel);
+    perfilSelecionado = nivel.charAt(0).toUpperCase() + nivel.slice(1);
+  }
+
+  // ── Helpers ──
+  function getRadio(name) {
+    var el = document.querySelector('input[name="' + name + '"]:checked');
+    return el ? el.closest('.option-item').querySelector('.option-label').textContent.trim() : '';
+  }
+
+  function getCheckboxes(name) {
+    var checked = document.querySelectorAll('input[name="' + name + '"]:checked');
+    var vals = [];
+    checked.forEach(function(el) {
+      var label = el.closest('.option-item').querySelector('.option-label').textContent.trim();
+      var outrInput = el.closest('.option-item').querySelector('.outro-input');
+      if (outrInput && outrInput.value.trim()) {
+        vals.push('Outro: ' + outrInput.value.trim());
+      } else {
+        vals.push(label);
+      }
+    });
+    return vals;
+  }
+
+  function getOutroInput(name) {
+    // Pega o input de texto dentro do option-item de rádio que tem o texto "Outro" e que está checked
+    var radios = document.querySelectorAll('input[name="' + name + '"]');
+    var val = '';
+    radios.forEach(function(el) {
+      if (el.checked) {
+        var outrInput = el.closest('.option-item').querySelector('.outro-input');
+        if (outrInput) val = outrInput.value.trim();
+      }
+    });
+    return val;
+  }
+
+  function getRedeOutro() {
+    var redeChecked = document.querySelector('input[name="rede"]:checked');
+    if (!redeChecked) return '';
+    var outrInput = redeChecked.closest('.option-item').querySelector('.outro-input');
+    return outrInput ? outrInput.value.trim() : '';
+  }
+
+  function getAllTexts() {
+    var texts = document.querySelectorAll('.respondente-tag input, .field input[type="text"]:not(.outro-input), .field textarea');
+    return texts;
+  }
+
+  // ── Coleta todos os dados ──
+  function coletarDados() {
+    var allTextInputs = document.querySelectorAll('.respondente-tag input');
+    var aplicado_por = allTextInputs[0] ? allTextInputs[0].value.trim() : '';
+
+    var fieldTexts = document.querySelectorAll('.field > input[type="text"]');
+    var nome_escola = fieldTexts[0] ? fieldTexts[0].value.trim() : '';
+    var cidade      = fieldTexts[1] ? fieldTexts[1].value.trim() : '';
+
+    var dores = getCheckboxes('dor');
+    var falhou = getCheckboxes('falhou');
+    var emocoes = getCheckboxes('emocao');
+    var objetivos = getCheckboxes('objetivo_evento');
+    var parcerias = getCheckboxes('parceria');
+    var travas = getCheckboxes('trava_mudanca');
+
+    var textareas = document.querySelectorAll('textarea');
+
+    var contato_inputs = document.querySelectorAll('.field div[style] input[type="text"]');
+
+    return {
+      aplicado_por:       aplicado_por,
+      nome_escola:        nome_escola,
+      cidade:             cidade,
+      tempo_escola:       getRadio('tempo_escola'),
+      alunos:             getRadio('alunos'),
+      faturamento:        getRadio('faturamento'),
+      rede:               getRadio('rede'),
+      qual_rede:          getRedeOutro(),
+      dor_1:              dores[0] || '',
+      dor_2:              dores[1] || '',
+      dor_outro:          (function(){ var el = document.querySelector('input[name="dor"]:checked'); if(!el) return ''; var oi = el.closest('.option-item').querySelector('.outro-input'); return oi ? oi.value.trim() : ''; })(),
+      crescimento:        getRadio('crescimento'),
+      consultoria:        getRadio('consultoria'),
+      falhou_1:           falhou[0] || '',
+      falhou_2:           falhou[1] || '',
+      falhou_outro:       '',
+      emocao_1:           emocoes[0] || '',
+      emocao_2:           emocoes[1] || '',
+      origem:             getRadio('origem'),
+      origem_outro:       getOutroInput('origem'),
+      chamou_atencao:     textareas[0] ? textareas[0].value.trim() : '',
+      objetivo_1:         objetivos[0] || '',
+      objetivo_2:         objetivos[1] || '',
+      futuro:             getRadio('futuro'),
+      parceria_1:         parcerias[0] || '',
+      parceria_2:         parcerias[1] || '',
+      parceria_outro:     '',
+      followup:           getRadio('followup'),
+      trava_1:            travas[0] || '',
+      trava_2:            travas[1] || '',
+      trava_outro:        '',
+      resolver_amanha:    textareas[1] ? textareas[1].value.trim() : '',
+      comentarios:        '',
+      contato_nome:       contato_inputs[0] ? contato_inputs[0].value.trim() : '',
+      contato_whatsapp:   contato_inputs[1] ? contato_inputs[1].value.trim() : '',
+      contato_instagram:  contato_inputs[2] ? contato_inputs[2].value.trim() : '',
+      perfil:             perfilSelecionado,
+    };
+  }
+
+  // ── Envio ──
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz7jZgDsvMKpf2BWuEDgYX3_K-4MGWIo4k1MVhaCrPgjQHYgX3Nkjx_o-yw1EtC8mE09Q/exec';
+
+  function enviarFormulario() {
+    var btn = document.getElementById('btn-enviar');
+    var status = document.getElementById('status-msg');
+
+    var dados = coletarDados();
+
+    if (!dados.nome_escola) {
+      status.style.display = 'block';
+      status.style.color = '#C8102E';
+      status.textContent = '⚠️ Preencha ao menos o nome da escola antes de enviar.';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = '⏳ Enviando...';
+    btn.style.background = '#888';
+    status.style.display = 'none';
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dados)
+    })
+    .then(function() {
+      btn.textContent = '✅ Enviado!';
+      btn.style.background = '#15803d';
+      status.style.display = 'block';
+      status.style.color = '#15803d';
+      status.textContent = 'Resposta salva na planilha com sucesso.';
+      setTimeout(function() {
+        if (confirm('Deseja limpar o formulário para o próximo respondente?')) {
+          location.reload();
+        }
+      }, 1200);
+    })
+    .catch(function(err) {
+      btn.disabled = false;
+      btn.textContent = '✅ Enviar para a planilha';
+      btn.style.background = '#C8102E';
+      status.style.display = 'block';
+      status.style.color = '#C8102E';
+      status.textContent = '❌ Erro ao enviar. Verifique sua conexão e tente novamente.';
+    });
   }
 </script>
 
